@@ -4,6 +4,9 @@
  * SPDX-License-Identifier: MIT
  */
 
+#define ZMK_POINTING_DEFAULT_MOVE_VAL 1500  // default: 600
+#define ZMK_POINTING_DEFAULT_SCRL_VAL 8     // default: 10
+
 #include <behaviors.dtsi>
 #include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/bt.h>
@@ -29,7 +32,23 @@
 #define BTSEL3  &bt BT_SEL 3
 #define BTSEL4  &bt BT_SEL 4
 
+
 / {
+    behaviors {
+        scroll: keyboard_scroll {
+            compatible = "zmk,behavior-sensor-rotate-var";
+            #sensor-binding-cells = <2>;
+            bindings = <&msc>, <&msc>;
+            tap-ms = <200>;
+        };
+        move: keyboard_move {
+            compatible = "zmk,behavior-sensor-rotate-var";
+            #sensor-binding-cells = <2>;
+            bindings = <&mmv>, <&mmv>;
+            tap-ms = <100>;
+        };
+    };
+
     keymap {
         compatible = "zmk,keymap";
 
@@ -43,13 +62,13 @@
 //                     | ALT  | GUI  | LOWER|  SPACE |  | ENTER | RAISE| BSPC  | GUI   |
             bindings = <
 &kp ESC   &kp N1 &kp N2 &kp N3   &kp N4   &kp N5                      &kp N6 &kp N7   &kp N8    &kp N9  &kp N0   &kp GRAVE
-&kp TAB   &kp Q  &kp W  &kp E    &kp R    &kp T                       &kp Y  &kp U    &kp I     &kp O   &kp P    &kp MINUS
+&kp TAB   &kp Q  &kp W  &kp E    &kp R    &kp T                       &kp Y  &msc SCRL_DOWN    &kp I     &kp O   &kp P    &kp MINUS
 &kp LCTRL &kp A  &kp S  &kp D    &kp F    &kp G                       &kp H  &kp J    &kp K     &kp L   &kp SEMI &kp SQT
-&kp LSHFT &kp Z  &kp X  &kp C    &kp V    &kp B  &kp LBKT   &mkp LCLK &kp N  &kp M    &kp COMMA &kp DOT &kp FSLH &kp RSHFT
+&kp LSHFT &kp Z  &kp X  &kp C    &kp V    &kp B  &mo 3      &mkp LCLK &kp N  &kp M    &kp COMMA &kp DOT &kp FSLH &kp RSHFT
                         &kp LALT &kp LGUI &mo 1  &kp SPACE  &kp RET   &mo 2  &kp BSPC &kp RGUI
             >;
 
-            sensor-bindings = <&inc_dec_kp LEFT RIGHT &inc_dec_kp UP DOWN>;
+            sensor-bindings = <&inc_dec_kp LEFT RIGHT &inc_dec_kp DOWN UP>;
         };
 
         lower_layer {
@@ -68,7 +87,7 @@ BTCLR      BTSEL0           BTSEL1            BTSEL2            BTSEL3       RGB
                                               &trans            &trans       &trans    &trans   &trans    &trans    &trans    &trans
             >;
 
-            sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &inc_dec_kp PG_UP PG_DN>;
+            sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &scroll SCRL_DOWN SCRL_UP>;
         };
 
         raise_layer {
@@ -87,7 +106,20 @@ BTCLR      BTSEL0           BTSEL1            BTSEL2            BTSEL3       RGB
                         &trans  &trans  &trans    &trans   &trans    &trans      &trans    &trans
             >;
 
-            sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &inc_dec_kp C_VOL_UP C_VOL_DN>;
+            sensor-bindings = <&scroll SCRL_LEFT SCRL_RIGHT &inc_dec_kp PG_DN PG_UP>;
+        };
+
+        mouse_layer {
+            display-name = "Mouse Layer";
+            bindings = <
+&trans    &trans &trans &trans  &trans  &trans                       &trans      &trans    &trans    &trans   &trans    &trans
+&trans    &trans &trans &trans  &trans  &trans                       &trans      &trans    &trans    &trans   &trans    &trans
+&trans    &trans &trans &trans  &trans  &trans                       &trans      &trans    &trans    &trans   &trans    &trans
+&trans    &trans &trans &trans  &trans  &trans    &trans   &trans    &mkp MCLK   &mkp RCLK &trans    &trans   &trans    &trans
+                        &trans  &trans  &trans    &trans   &trans    &trans      &trans    &trans
+            >;
+
+            sensor-bindings = <&move MOVE_LEFT MOVE_RIGHT &move MOVE_DOWN MOVE_UP>;
         };
     };
 };
@@ -96,3 +128,6 @@ BTCLR      BTSEL0           BTSEL1            BTSEL2            BTSEL3       RGB
   chain-length = <29>;
 };
 
+&sensors {
+  triggers-per-rotation = <40>;
+};
