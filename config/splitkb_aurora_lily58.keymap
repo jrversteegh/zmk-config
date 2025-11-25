@@ -52,33 +52,34 @@
     keymap {
         compatible = "zmk,keymap";
 
-        default_layer {
-            display-name = "Default Layer";
-// ------------------------------------------------------------------------------------------------------------
-// |  ESC  |  1  |  2  |  3   |  4   |  5   |                   |  6   |  7    |  8    |  9   |   0   |   `   |
-// |  TAB  |  Q  |  W  |  E   |  R   |  T   |                   |  Y   |  U    |  I    |  O   |   P   |   -   |
-// |  CTRL |  A  |  S  |  D   |  F   |  G   |                   |  H   |  J    |  K    |  L   |   ;   |   '   |
-// | SHIFT |  Z  |  X  |  C   |  V   |  B   |   "["  |  |  "]"  |  N   |  M    |  ,    |  .   |   /   | SHIFT |
-//                     | ALT  | GUI  | LOWER|  SPACE |  | ENTER | RAISE| BSPC  | GUI   |
+        qwerty_layer {
+            display-name = "QWERTY";
             bindings = <
-&kp ESC   &kp N1 &kp N2 &kp N3   &kp N4   &kp N5                      &kp N6 &kp N7   &kp N8    &kp N9  &kp N0   &kp GRAVE
-&kp TAB   &kp Q  &kp W  &kp E    &kp R    &kp T                       &kp Y  &msc SCRL_DOWN    &kp I     &kp O   &kp P    &kp MINUS
-&kp LCTRL &kp A  &kp S  &kp D    &kp F    &kp G                       &kp H  &kp J    &kp K     &kp L   &kp SEMI &kp SQT
-&kp LSHFT &kp Z  &kp X  &kp C    &kp V    &kp B  &mo 3      &mkp LCLK &kp N  &kp M    &kp COMMA &kp DOT &kp FSLH &kp RSHFT
-                        &kp LALT &kp LGUI &mo 1  &kp SPACE  &kp RET   &mo 2  &kp BSPC &kp RGUI
+&kp GRAVE &kp N1 &kp N2 &kp N3    &kp N4   &kp N5                      &kp N6 &kp N7   &kp N8    &kp N9  &kp N0   &kp EQUAL
+&kp TAB   &kp Q  &kp W  &kp E     &kp R    &kp T                       &kp Y  &kp U    &kp I     &kp O   &kp P    &kp MINUS
+&kp ESC   &kp A  &kp S  &kp D     &kp F    &kp G                       &kp H  &kp J    &kp K     &kp L   &kp SEMI &kp SQT
+&kp LSHFT &kp Z  &kp X  &kp C     &kp V    &kp B  &mo 4      &mkp LCLK &kp N  &kp M    &kp COMMA &kp DOT &kp FSLH &kp RSHFT
+                        &kp LCTRL &kp LALT &mo 2  &kp SPACE  &kp RET   &mo 3  &kp BSPC &kp RGUI
+            >;
+
+            sensor-bindings = <&inc_dec_kp LEFT RIGHT &inc_dec_kp DOWN UP>;
+        };
+
+        colemakdh_layer {
+            display-name = "ColeDH";
+            bindings = <
+&kp GRAVE &kp N1 &kp N2 &kp N3    &kp N4   &kp N5                      &kp N6 &kp N7   &kp N8    &kp N9  &kp N0   &kp EQUAL
+&kp TAB   &kp Q  &kp W  &kp F     &kp P    &kp B                       &kp J  &kp L    &kp U     &kp Y   &kp SEMI &kp MINUS
+&kp ESC   &kp A  &kp R  &kp S     &kp T    &kp G                       &kp M  &kp N    &kp E     &kp I   &kp O    &kp SQT
+&kp LSHFT &kp Z  &kp X  &kp C     &kp D    &kp V  &mo 4      &mkp LCLK &kp K  &kp H    &kp COMMA &kp DOT &kp FSLH &kp RSHFT
+                        &kp LCTRL &kp LALT &mo 2  &kp SPACE  &kp RET   &mo 3  &kp BSPC &kp RGUI
             >;
 
             sensor-bindings = <&inc_dec_kp LEFT RIGHT &inc_dec_kp DOWN UP>;
         };
 
         lower_layer {
-            display-name = "Lower Layer";
-// ------------------------------------------------------------------------------------------------------------
-// | BTCLR | BT1 | BT2 |  BT3 |  BT4 |  BT5 |                   |      |       |       |      |       |       |
-// |  F1   |  F2 |  F3 |  F4  |  F5  |  F6  |                   |  F7  |  F8   |  F9   |  F10 |  F11  |  F12  |
-// |   `   |  !  |  @  |  #   |  $   |  %   |                   |  ^   |  &    |  *    |  (   |   )   |   ~   |
-// |       |     |     |      |      |      |        |  |       |      |  _    |  +    |  {   |   }   |  "|"  |
-//                     |      |      |      |        |  |       |      |       |       |
+            display-name = "Lower";
             bindings = <
 BTCLR      BTSEL0           BTSEL1            BTSEL2            BTSEL3       RGBTOG                       RGBBRD    RGBBRI    RGBHUI   RGBHUD    RGBSAI    RGBSAD
 &kp F1     &kp F2           &kp F3            &kp F4            &kp F5       &kp F6                       &kp F7    &kp F8    &kp F9   &kp F10   &kp F11   &kp F12
@@ -91,13 +92,7 @@ BTCLR      BTSEL0           BTSEL1            BTSEL2            BTSEL3       RGB
         };
 
         raise_layer {
-            display-name = "Raise Layer";
-// ------------------------------------------------------------------------------------------------------------
-// |       |     |     |      |      |      |                   |      |       |       |      |       |       |
-// |   `   |  1  |  2  |  3   |  4   |  5   |                   |  6   |   7   |   8   |  9   |   0   |       |
-// |   F1  |  F2 |  F3 |  F4  |  F5  |  F6  |                   |      |   <-  |   v   |  ^   |  ->   |       |
-// |   F7  |  F8 |  F9 |  F10 |  F11 |  F12 |        |  |       |  +   |   -   |   =   |  [   |   ]   |   \   |
-//                     |      |      |      |        |  |       |      |       |       |
+            display-name = "Raise";
             bindings = <
 &trans    &trans &trans &trans  &trans  &trans                       &trans      &trans    &trans    &trans   &trans    &trans
 &kp GRAVE &kp N1 &kp N2 &kp N3  &kp N4  &kp N5                       &kp N6      &kp N7    &kp N8    &kp N9   &kp N0    &trans
@@ -110,13 +105,13 @@ BTCLR      BTSEL0           BTSEL1            BTSEL2            BTSEL3       RGB
         };
 
         mouse_layer {
-            display-name = "Mouse Layer";
+            display-name = "Mouse";
             bindings = <
 &trans    &trans &trans &trans  &trans  &trans                       &trans      &trans    &trans    &trans   &trans    &trans
 &trans    &trans &trans &trans  &trans  &trans                       &trans      &trans    &trans    &trans   &trans    &trans
 &trans    &trans &trans &trans  &trans  &trans                       &trans      &trans    &trans    &trans   &trans    &trans
-&trans    &trans &trans &trans  &trans  &trans    &trans   &trans    &mkp MCLK   &mkp RCLK &trans    &trans   &trans    &trans
-                        &trans  &trans  &trans    &trans   &trans    &trans      &trans    &trans
+&trans    &trans &trans &trans  &trans  &trans    &trans   &mkp LCLK &mkp MCLK   &mkp RCLK &trans    &trans   &trans    &trans
+                        &trans  &trans  &trans    &trans   &trans    &trans      &trans    &tog 1
             >;
 
             sensor-bindings = <&move MOVE_LEFT MOVE_RIGHT &move MOVE_DOWN MOVE_UP>;
