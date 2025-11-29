@@ -33,3 +33,11 @@ nice_view_spi: &spi0 {
 &pro_micro_i2c {
     status = "disabled";
 };
+
+&gpio1 {
+     display_power_pin: display_power_pin {
+         gpio-hog;
+         gpios = <2 GPIO_ACTIVE_HIGH>;
+         output-high;
+     };
+};
