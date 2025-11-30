@@ -1,0 +1,8 @@
+file_format: "1"
+id: nice_view_orca
+name: Orca nice!view
+type: shield
+url: https://www.orca-st.com/
+requires: [nice_view_header]
+features:
+  - display
