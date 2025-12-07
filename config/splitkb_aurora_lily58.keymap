@@ -7,12 +7,15 @@
 #define ZMK_POINTING_DEFAULT_MOVE_VAL 1500  // default: 600
 #define ZMK_POINTING_DEFAULT_SCRL_VAL 8     // default: 10
 
+#include <behaviors/unicode.dtsi>
 #include <behaviors.dtsi>
 #include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/bt.h>
 #include <dt-bindings/zmk/rgb.h>
 #include <dt-bindings/zmk/ext_power.h>
 #include <dt-bindings/zmk/pointing.h>
+#include <dt-bindings/zmk-unicode/uc.h>
+#include <zmk-unicode/keys-extra.h>
 
 #define CLICK   &kp LCLK
 #define L_SHFT  &kp LSHFT
@@ -46,6 +49,50 @@
 #define EXTON   &ext_power EP_ON 
 #define EXTOFF  &ext_power EP_OFF 
 #define EXTTOG  &ext_power EP_TOG 
+
+#define USLI    &uc UC_SET_LINUX
+#define USWI    &uc UC_SET_WIN_ALT
+#define USMA    &uc UC_SET_MACOS
+
+#define AGRAVE  &uc UC_LATIN_LETTER_A_WITH_GRAVE
+#define AACUTE  &uc UC_LATIN_LETTER_A_WITH_ACUTE
+#define ADIAER  &uc UC_LATIN_LETTER_A_WITH_DIAERESIS
+#define ACIRCM  &uc UC_LATIN_LETTER_A_WITH_CIRCUMFLEX
+#define EGRAVE  &uc UC_LATIN_LETTER_E_WITH_GRAVE
+#define EACUTE  &uc UC_LATIN_LETTER_E_WITH_ACUTE
+#define EDIAER  &uc UC_LATIN_LETTER_E_WITH_DIAERESIS
+#define ECIRCM  &uc UC_LATIN_LETTER_E_WITH_CIRCUMFLEX
+#define IGRAVE  &uc UC_LATIN_LETTER_I_WITH_GRAVE
+#define IACUTE  &uc UC_LATIN_LETTER_I_WITH_ACUTE
+#define IDIAER  &uc UC_LATIN_LETTER_I_WITH_DIAERESIS
+#define ICIRCM  &uc UC_LATIN_LETTER_I_WITH_CIRCUMFLEX
+#define OGRAVE  &uc UC_LATIN_LETTER_O_WITH_GRAVE
+#define OACUTE  &uc UC_LATIN_LETTER_O_WITH_ACUTE
+#define ODIAER  &uc UC_LATIN_LETTER_O_WITH_DIAERESIS
+#define OCIRCM  &uc UC_LATIN_LETTER_O_WITH_CIRCUMFLEX
+#define UGRAVE  &uc UC_LATIN_LETTER_E_WITH_GRAVE
+#define UACUTE  &uc UC_LATIN_LETTER_E_WITH_ACUTE
+#define UDIAER  &uc UC_LATIN_LETTER_E_WITH_DIAERESIS
+#define UCIRCM  &uc UC_LATIN_LETTER_U_WITH_CIRCUMFLEX
+
+#define EURO    &uc UC_CURR_EURO
+#define STERL   &uc UC_CURR_POUND
+
+#define CDILLA  &uc UC_FR_C_CEDILLA
+#define RINGLS  &uc UC_DE_SS
+
+#define SMILE   &uc UC_SMILING_FACE_WITH_OPEN_MOUTH_AND_SMILING_EYES
+#define CRINGE  &uc UC_FACE_WITH_STUCK_OUT_TONGUE_AND_TIGHTLY_CLOSED_EYES
+#define TONGUE  &uc UC_FACE_WITH_STUCK_OUT_TONGUE
+#define CRYING  &uc UC_DISAPPOINTED_BUT_RELIEVED_FACE
+#define ROFL    &uc UC_FACE_WITH_TEARS_OF_JOY
+#define HALLEH  &uc UC_PERSON_WITH_FOLDED_HANDS
+#define CELEB   &uc UC_PERSON_RAISING_BOTH_HANDS_IN_CELEBRATION
+#define THUMBS  &uc 0x1F44D 0
+#define MUSIC   &uc 0x0266C 0
+
+#define FRAE    &uc UC_FR_AE
+#define FROE    &uc UC_FR_OE
 
 #define EQ      EQUAL
 
@@ -97,10 +144,10 @@
         right_layer {
             display-name = "Right";
             bindings = <
-&kp F1   &kp F2    &kp F3   &kp F4   &kp F5   &kp F6                     &kp F7    &kp F8    &kp F9   &kp F10   &kp F11   &kp F12
-&trans   &kp N1    &kp N2   &kp N3   &kp N4   &kp N5                     &kp INS   &kp DEL   &kp HOME &kp END   &kp PG_UP &trans
-&trans   &none     &none    &none    &none    &none                      &kp LEFT  &kp DOWN  &kp UP   &kp RIGHT &kp PG_DN &trans
-&trans   &trans    &trans   &trans   &trans   &trans   &trans   &trans   &kp BSLH  &kp FSLH  &kp PIPE &kp TILDE &kp RCTRL &kp RALT
+AGRAVE   EGRAVE    IGRAVE   OGRAVE   UGRAVE   CDILLA                     &kp F7    &kp F8    &kp F9   &kp F10   &kp F11   &kp F12
+AACUTE   EACUTE    IACUTE   OACUTE   UACUTE   EURO                       &kp INS   &kp DEL   &kp HOME &kp END   &kp PG_UP &trans
+ADIAER   EDIAER    IDIAER   ODIAER   UDIAER   RINGLS                     &kp LEFT  &kp DOWN  &kp UP   &kp RIGHT &kp PG_DN &trans
+ACIRCM   ECIRCM    ICIRCM   OCIRCM   UCIRCM   &none    &trans   &trans   &kp BSLH  &kp FSLH  &kp PIPE &kp TILDE &kp RCTRL &kp RALT
                             &trans   &trans   &trans   &trans   &trans   &trans    &trans    &trans
             >;
 
@@ -110,10 +157,10 @@
         numeric_layer {
             display-name = "Numeric";
             bindings = <
-&trans   &trans    &trans   &trans   &trans   &trans                     &trans    &trans    &kp FSLH &kp STAR  &kp MINUS  &kp LT
-&trans   &none     &none    &none    &none    &none                      &kp EXCL  &kp N7    &kp N8   &kp N9    &kp PLUS   &kp GT
-&trans   &none     &none    &none    &none    &none                      &kp TILDE &kp N4    &kp N5   &kp N6    &kp EQUAL  &kp EQUAL
-&trans   &none     &none    &none    &trans   &trans   &trans   &trans   &kp PRCNT &kp N1    &kp N2   &kp N3    &kp RET    &kp RET
+&trans   FRAE      FROE     &trans   &trans   &trans                     &trans    &trans    &kp FSLH &kp STAR  &kp MINUS  &kp LT
+&trans   SMILE     CRINGE   TONGUE   &none    STERL                      &kp EXCL  &kp N7    &kp N8   &kp N9    &kp PLUS   &kp GT
+&trans   ROFL      HALLEH   THUMBS   &none    &none                      &kp TILDE &kp N4    &kp N5   &kp N6    &kp EQUAL  &kp EQUAL
+&trans   CRYING    CELEB    MUSIC    &none    &none    &trans   &trans   &kp PRCNT &kp N1    &kp N2   &kp N3    &kp RET    &kp RET
                             &trans   &trans   &trans   &trans   &trans   &trans    &kp N0    &kp DOT
             >;
 
@@ -123,8 +170,8 @@
         left_layer {
             display-name = "Left";
             bindings = <
-&kp F1  &kp F2    &kp F3   &kp F4   &kp F5     &kp F6                       &kp F7      &kp F8    &kp F9    &kp F10  &kp F11   &kp F12
-&trans  &kp COLON &kp EQ   &kp LBRC &kp RBRC   &kp DOLLAR                   &kp N6      &kp N7    &kp N8    &kp N9   &kp N0    &none 
+&kp F1  &kp F2    &kp F3   &kp F4   &kp F5     &kp F6                       &none       &none     &none     &none    &none     &none
+&trans  &kp COLON &kp EQ   &kp LBRC &kp RBRC   &kp DOLLAR                   &none       &none     &none     &none    &none     &none 
 &trans  &kp LT    &kp GT   &kp LPAR &kp RPAR   &kp PRCNT                    &kp TILDE   &kp CARET &kp AMPS  &kp STAR &kp LPAR  &kp RPAR 
 &trans  &kp LGUI  &kp LALT &kp LBKT &kp RBKT   &kp CARET &trans   &trans    &kp PLUS    &kp MINUS &kp COLON &kp EQ   &kp LBKT  &kp RBKT
                            &trans   &trans     &trans    &trans   &trans    &trans      &trans    &trans
@@ -139,7 +186,7 @@
 BTCLR    BTSEL0 BTSEL1 BTSEL2  BTSEL3  BTSEL4                        RGBBRD      RGBBRI      RGBHUI      RGBHUD     RGBSAI    RGBSAD
 BTCLRA   &none  &none  &none   &none   &none                         &kp C_PREV  &kp C_PLAY  &kp C_STOP  &kp C_NEXT &trans    RGBTOG
 &trans   &none  &none  &none   &none   &none                         &kp K_CUT   &kp K_COPY  &kp K_PASTE &none      &none     &none 
-&trans   &none  &none  &none   &none   &none     &trans   &mkp LCLK  &mkp MCLK   &mkp RCLK   &none       EXTON      EXTOFF    EXTTOG 
+USLI     USWI   USMA   &none   &none   &none     &trans   &mkp LCLK  &mkp MCLK   &mkp RCLK   &none       EXTON      EXTOFF    EXTTOG 
                        &trans  &trans  &trans    &trans   &trans     &trans      &trans      &tog 1
             >;
 
@@ -155,3 +202,8 @@ BTCLRA   &none  &none  &none   &none   &none                         &kp C_PREV 
 &sensors {
   triggers-per-rotation = <40>;
 };
+
+&uc {
+  default-mode = <UC_MODE_LINUX>;
+};
+
