@@ -29,6 +29,8 @@
 
 #define RGBON   &rgb_ug RGB_ON
 #define RGBOFF  &rgb_ug RGB_OFF
+#define RGBFON  &rgb_ug RGB_FON
+#define RGBFOFF &rgb_ug RGB_FOFF
 #define RGBTOG  &rgb_ug RGB_TOG
 #define RGBHUI  &rgb_ug RGB_HUI
 #define RGBHUD  &rgb_ug RGB_HUD
@@ -186,7 +188,7 @@ ACIRCM   ECIRCM    ICIRCM   OCIRCM   UCIRCM   &none    &trans   &trans   &kp BSL
             bindings = <
 BTCLR    BTSEL0 BTSEL1 BTSEL2  BTSEL3  BTSEL4                        RGBBRD      RGBBRI      RGBHUI      RGBHUD     RGBSAI    RGBSAD
 BTCLRA   &none  &none  &none   &none   &none                         &kp C_PREV  &kp C_PLAY  &kp C_STOP  &kp C_NEXT &trans    RGBTOG
-&trans   &none  &none  &none   &none   &none                         &kp K_CUT   &kp K_COPY  &kp K_PASTE &none      &none     &none 
+&trans   &none  &none  &none   &none   &none                         &kp K_CUT   &kp K_COPY  &kp K_PASTE &none      RGBFON    RGBFOFF
 USLI     USWI   USMA   &none   &none   &none     &trans   &mkp LCLK  &mkp MCLK   &mkp RCLK   &none       EXTON      EXTOFF    EXTTOG 
                        &trans  &trans  &trans    &trans   &trans     &trans      &trans      &tog 1
             >;
