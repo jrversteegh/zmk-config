@@ -37,6 +37,8 @@ static void draw_top(lv_obj_t *widget, lv_color_t cbuf[], const struct status_st
     init_label_dsc(&label_dsc, LVGL_FOREGROUND, &lv_font_montserrat_16, LV_TEXT_ALIGN_RIGHT);
     lv_draw_rect_dsc_t rect_black_dsc;
     init_rect_dsc(&rect_black_dsc, LVGL_BACKGROUND);
+    lv_draw_label_dsc_t label_voltage;
+    init_label_dsc(&label_voltage, LVGL_FOREGROUND, &lv_font_montserrat_12, LV_TEXT_ALIGN_LEFT);
 
     // Fill background
     canvas_draw_rect(canvas, 0, 0, CANVAS_SIZE, CANVAS_SIZE, &rect_black_dsc);
@@ -47,6 +49,11 @@ static void draw_top(lv_obj_t *widget, lv_color_t cbuf[], const struct status_st
     // Draw output status
     canvas_draw_text(canvas, 0, 0, CANVAS_SIZE, &label_dsc,
                      state->connected ? LV_SYMBOL_WIFI : LV_SYMBOL_CLOSE);
+
+    // Battery voltage text
+    char voltage_text[8] = {};
+    snprintf(voltage_text, sizeof(voltage_text), "%d.%02d V", state->millivolts / 1000, (state->millivolts % 1000) / 10);
+    canvas_draw_text(canvas, 4, 20, 48, &label_voltage, voltage_text);
 
     // Rotate canvas
     rotate_canvas(canvas);
@@ -59,6 +66,7 @@ static void set_battery_status(struct zmk_widget_status *widget,
 #endif /* IS_ENABLED(CONFIG_USB_DEVICE_STACK) */
 
     widget->state.battery = state.level;
+    widget->state.millivolts = state.millivolts;
 
     draw_top(widget->obj, widget->cbuf, &widget->state);
 }
@@ -69,8 +77,11 @@ static void battery_status_update_cb(struct battery_status_state state) {
 }
 
 static struct battery_status_state battery_status_get_state(const zmk_event_t *eh) {
-    return (struct battery_status_state){
-        .level = zmk_battery_state_of_charge(),
+    const struct zmk_battery_state_changed *ev = as_zmk_battery_state_changed(eh);
+
+    return (struct battery_status_state) {
+        .level = (ev != NULL) ? ev->state_of_charge : zmk_battery_state_of_charge(),
+        .millivolts = (ev != NULL) ? ev->millivolts : zmk_battery_millivolts(),
 #if IS_ENABLED(CONFIG_USB_DEVICE_STACK)
         .usb_present = zmk_usb_is_powered(),
 #endif /* IS_ENABLED(CONFIG_USB_DEVICE_STACK) */
@@ -112,9 +123,9 @@ int zmk_widget_status_init(struct zmk_widget_status *widget, lv_obj_t *parent) {
     lv_obj_align(top, LV_ALIGN_TOP_RIGHT, 0, 0);
     lv_canvas_set_buffer(top, widget->cbuf, CANVAS_SIZE, CANVAS_SIZE, CANVAS_COLOR_FORMAT);
 
-    lv_obj_t *art = lv_img_create(widget->obj);
-    lv_image_set_src(art, &logo);
-    lv_obj_align(art, LV_ALIGN_TOP_LEFT, 0, 0);
+    lv_obj_t *img_logo = lv_img_create(widget->obj);
+    lv_image_set_src(img_logo, &logo);
+    lv_obj_align(img_logo, LV_ALIGN_TOP_LEFT, 0, 0);
 
     sys_slist_append(&widgets, &widget->node);
     widget_battery_status_init();

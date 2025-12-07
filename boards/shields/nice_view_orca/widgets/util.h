@@ -11,6 +11,7 @@
 #define NICEVIEW_PROFILE_COUNT 5
 
 #define CANVAS_SIZE 68
+#define WPM_COUNT 16
 #define CANVAS_COLOR_FORMAT LV_COLOR_FORMAT_L8 // smallest type supported by sw_rotate
 #define CANVAS_BUF_SIZE                                                                            \
     LV_CANVAS_BUF_SIZE(CANVAS_SIZE, CANVAS_SIZE, LV_COLOR_FORMAT_GET_BPP(CANVAS_COLOR_FORMAT),     \
@@ -23,6 +24,7 @@
 
 struct status_state {
     uint8_t battery;
+    uint16_t millivolts;
     bool charging;
 #if !IS_ENABLED(CONFIG_ZMK_SPLIT) || IS_ENABLED(CONFIG_ZMK_SPLIT_ROLE_CENTRAL)
     struct zmk_endpoint_instance selected_endpoint;
@@ -33,7 +35,7 @@ struct status_state {
     bool profiles_bonded[NICEVIEW_PROFILE_COUNT];
     uint8_t layer_index;
     const char *layer_label;
-    uint8_t wpm[10];
+    uint8_t wpm[WPM_COUNT];
 #else
     bool connected;
 #endif
@@ -41,6 +43,7 @@ struct status_state {
 
 struct battery_status_state {
     uint8_t level;
+    uint16_t millivolts;
 #if IS_ENABLED(CONFIG_USB_DEVICE_STACK)
     bool usb_present;
 #endif
