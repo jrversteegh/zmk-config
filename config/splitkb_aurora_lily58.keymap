@@ -31,6 +31,7 @@
 #define BTSEL2  &bt BT_SEL 2
 #define BTSEL3  &bt BT_SEL 3
 #define BTSEL4  &bt BT_SEL 4
+#define BTCLRA  &bt BT_CLR_ALL
 
 #define EXTON   &ext_power EP_ON 
 #define EXTOFF  &ext_power EP_OFF 
@@ -84,11 +85,11 @@
         right_layer {
             display-name = "Right";
             bindings = <
-&trans     &trans           &trans            &trans            &trans       &trans                      &trans    &trans    &trans   &trans    &trans    &trans
-&kp F1     &kp F2           &kp F3            &kp F4            &kp F5       &kp F6                      &kp F7    &kp F8    &kp F9   &kp F10   &kp F11   &kp F12
-&kp F1     &kp F2           &kp F3            &kp F4            &kp F5       &kp F6                      &kp LEFT  &kp DOWN  &kp UP   &kp RIGHT &trans    &trans
-&trans     &trans       &trans    &trans   &trans   &trans    &kp MINUS &kp PLUS &kp LBRC  &kp RBRC  &kp PIPE
-                                              &trans            &trans       &trans    &trans   &trans   &trans    &trans    &trans
+&trans     &trans           &trans            &trans            &trans       &trans                       &trans    &trans    &trans   &trans    &trans    &trans
+&kp F1     &kp F2           &kp F3            &kp F4            &kp F5       &kp F6                       &kp F7    &kp F8    &kp F9   &kp F10   &kp F11   &kp F12
+&kp F1     &kp F2           &kp F3            &kp F4            &kp F5       &kp F6                       &kp LEFT  &kp DOWN  &kp UP   &kp RIGHT &trans    &trans
+&trans     &trans           &trans            &trans            &trans       &trans    &kp MINUS &kp PLUS &kp LBRC  &kp RBRC  &kp PIPE
+                                              &trans            &trans       &trans    &trans    &trans   &trans    &trans    &trans
             >;
 
             sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &scroll SCRL_DOWN SCRL_UP>;
@@ -123,11 +124,11 @@
         mouse_layer {
             display-name = "Mouse";
             bindings = <
-BTCLR    BTSEL0 BTSEL1 BTSEL2  BTSEL3  RGBTOG                        RGBBRD      RGBBRI      RGBHUI      RGBHUD     RGBSAI    RGBSAD
-&trans   &trans &trans &trans  &trans  &trans                        &kp C_PREV  &kp C_PLAY  &kp C_STOP  &kp C_NEXT &trans    &trans
+BTCLR    BTSEL0 BTSEL1 BTSEL2  BTSEL3  BTSEL4                        RGBBRD      RGBBRI      RGBHUI      RGBHUD     RGBSAI    RGBSAD
+BTCLRA   &trans &trans &trans  &trans  &trans                        &kp C_PREV  &kp C_PLAY  &kp C_STOP  &kp C_NEXT &trans    RGBTOG
 &trans   &trans &trans &trans  &trans  &trans                        &trans      &trans      &trans      &trans     &trans    &trans
-&trans   &trans &trans &trans  &trans  &trans    &trans   &mkp LCLK  &mkp MCLK   &mkp RCLK   &trans      &trans     &trans    &trans
-EXTON    EXTOFF EXTTOG &trans  &trans  &trans    &trans   &trans     &trans      &trans      &tog 1
+EXTON    EXTOFF EXTTOG &trans  &trans  &trans    &trans   &mkp LCLK  &mkp MCLK   &mkp RCLK   &trans      &trans     &trans    &trans
+                       &trans  &trans  &trans    &trans   &trans     &trans      &trans      &tog 1
             >;
 
             sensor-bindings = <&move MOVE_LEFT MOVE_RIGHT &move MOVE_DOWN MOVE_UP>;
