@@ -14,6 +14,16 @@
 #include <dt-bindings/zmk/ext_power.h>
 #include <dt-bindings/zmk/pointing.h>
 
+#define CLICK   &kp LCLK
+#define L_SHFT  &kp LSHFT
+#define R_SHFT  &kp RSHFT
+
+#define MO1     &mo 1
+#define MO2     &mo 2
+#define MO3     &mo 3
+#define MO4     &mo 4
+#define MO5     &mo 5
+
 #define RGBON   &rgb_ug RGB_ON
 #define RGBOFF  &rgb_ug RGB_OFF
 #define RGBTOG  &rgb_ug RGB_TOG
@@ -37,6 +47,8 @@
 #define EXTOFF  &ext_power EP_OFF 
 #define EXTTOG  &ext_power EP_TOG 
 
+#define EQ      EQUAL
+
 / {
     behaviors {
         scroll: keyboard_scroll {
@@ -59,11 +71,11 @@
         qwerty_layer {
             display-name = "QWERTY";
             bindings = <
-&kp GRAVE &kp N1 &kp N2 &kp N3    &kp N4   &kp N5                      &kp N6 &kp N7   &kp N8    &kp N9  &kp N0   &kp EQUAL
-&kp TAB   &kp Q  &kp W  &kp E     &kp R    &kp T                       &kp Y  &kp U    &kp I     &kp O   &kp P    &kp MINUS
-&kp ESC   &kp A  &kp S  &kp D     &kp F    &kp G                       &kp H  &kp J    &kp K     &kp L   &kp SEMI &kp SQT
-&kp LSHFT &kp Z  &kp X  &kp C     &kp V    &kp B  &mo 5      &mkp LCLK &kp N  &kp M    &kp COMMA &kp DOT &kp FSLH &kp RSHFT
-                        &kp LCTRL &mo 3    &mo 2  &kp SPACE  &kp RET   &mo 4  &kp BSPC &kp LALT
+&kp GRAVE &kp N1 &kp N2 &kp N3    &kp N4   &kp N5                      &kp N6  &kp N7   &kp N8    &kp N9  &kp N0   &kp EQUAL
+&kp TAB   &kp Q  &kp W  &kp E     &kp R    &kp T                       &kp Y   &kp U    &kp I     &kp O   &kp P    &kp MINUS
+&kp ESC   &kp A  &kp S  &kp D     &kp F    &kp G                       &kp H   &kp J    &kp K     &kp L   &kp SEMI &kp SQT
+&kp LCTRL &kp Z  &kp X  &kp C     &kp V    &kp B     &mo 5     CLICK   &kp N   &kp M    &kp COMMA &kp DOT &kp FSLH &kp BSLH
+                        MO3       MO2      L_SHFT    &kp SPACE &kp RET R_SHFT  MO4      &kp BSPC
             >;
 
             sensor-bindings = <&inc_dec_kp LEFT RIGHT &inc_dec_kp DOWN UP>;
@@ -72,11 +84,11 @@
         colemakdh_layer {
             display-name = "ColeDH";
             bindings = <
-&kp GRAVE &kp N1 &kp N2 &kp N3    &kp N4   &kp N5                      &kp N6 &kp N7   &kp N8    &kp N9  &kp N0   &kp EQUAL
-&kp TAB   &kp Q  &kp W  &kp F     &kp P    &kp B                       &kp J  &kp L    &kp U     &kp Y   &kp SEMI &kp MINUS
-&kp ESC   &kp A  &kp R  &kp S     &kp T    &kp G                       &kp M  &kp N    &kp E     &kp I   &kp O    &kp SQT
-&kp LSHFT &kp Z  &kp X  &kp C     &kp D    &kp V  &mo 5      &mkp LCLK &kp K  &kp H    &kp COMMA &kp DOT &kp FSLH &kp RSHFT
-                        &kp LCTRL &mo 3    &mo 2  &kp SPACE  &kp RET   &mo 4  &kp BSPC &kp RGUI
+&trans    &trans &trans &trans    &trans   &trans                      &trans  &trans   &trans    &trans  &trans   &trans
+&trans    &kp Q  &kp W  &kp F     &kp P    &kp B                       &kp J   &kp L    &kp U     &kp Y   &kp SEMI &trans
+&trans    &kp A  &kp R  &kp S     &kp T    &kp G                       &kp M   &kp N    &kp E     &kp I   &kp O    &trans
+&trans    &kp Z  &kp X  &kp C     &kp D    &kp V     &trans    &trans  &kp K   &kp H    &kp COMMA &kp DOT &trans   &trans
+                        &trans    &trans   &trans    &trans    &trans  &trans  &trans   &trans
             >;
 
             sensor-bindings = <&inc_dec_kp LEFT RIGHT &inc_dec_kp DOWN UP>;
@@ -85,11 +97,11 @@
         right_layer {
             display-name = "Right";
             bindings = <
-&trans     &trans           &trans            &trans            &trans       &trans                       &trans    &trans    &trans   &trans    &trans    &trans
-&kp F1     &kp F2           &kp F3            &kp F4            &kp F5       &kp F6                       &kp F7    &kp F8    &kp F9   &kp F10   &kp F11   &kp F12
-&kp F1     &kp F2           &kp F3            &kp F4            &kp F5       &kp F6                       &kp LEFT  &kp DOWN  &kp UP   &kp RIGHT &trans    &trans
-&trans     &trans           &trans            &trans            &trans       &trans    &kp MINUS &kp PLUS &kp LBRC  &kp RBRC  &kp PIPE
-                                              &trans            &trans       &trans    &trans    &trans   &trans    &trans    &trans
+&kp F1   &kp F2    &kp F3   &kp F4   &kp F5   &kp F6                     &kp F7    &kp F8    &kp F9   &kp F10   &kp F11   &kp F12
+&trans   &kp N1    &kp N2   &kp N3   &kp N4   &kp N5                     &kp INS   &kp DEL   &kp HOME &kp END   &kp PG_UP &trans
+&trans   &none     &none    &none    &none    &none                      &kp LEFT  &kp DOWN  &kp UP   &kp RIGHT &kp PG_DN &trans
+&trans   &trans    &trans   &trans   &trans   &trans   &trans   &trans   &kp BSLH  &kp FSLH  &kp PIPE &kp TILDE &kp RCTRL &kp RALT
+                            &trans   &trans   &trans   &trans   &trans   &trans    &trans    &trans
             >;
 
             sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &scroll SCRL_DOWN SCRL_UP>;
@@ -98,24 +110,24 @@
         numeric_layer {
             display-name = "Numeric";
             bindings = <
-&trans     &trans           &trans            &trans            &trans       &trans                      &trans    &trans    &kp FSLH &kp STAR  &kp MINUS  &none
-&trans     &none            &none             &none             &none        &none                       &none     &kp N7    &kp N8   &kp N9    &kp PLUS   &none
-&trans     &none            &none             &none             &none        &none                       &none     &kp N4    &kp N5   &kp N6    &kp RET    &trans
-&trans     &none            &none             &none             &trans       &trans    &trans   &trans   &none     &kp N1    &kp N2   &kp N3    &kp RET    &trans
-                                              &trans            &trans       &trans    &trans   &trans   &trans    &kp N0    &kp DOT
+&trans   &trans    &trans   &trans   &trans   &trans                     &trans    &trans    &kp FSLH &kp STAR  &kp MINUS  &kp LT
+&trans   &none     &none    &none    &none    &none                      &kp EXCL  &kp N7    &kp N8   &kp N9    &kp PLUS   &kp GT
+&trans   &none     &none    &none    &none    &none                      &kp TILDE &kp N4    &kp N5   &kp N6    &kp EQUAL  &kp EQUAL
+&trans   &none     &none    &none    &trans   &trans   &trans   &trans   &kp PRCNT &kp N1    &kp N2   &kp N3    &kp RET    &kp RET
+                            &trans   &trans   &trans   &trans   &trans   &trans    &kp N0    &kp DOT
             >;
 
-            sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &scroll SCRL_DOWN SCRL_UP>;
+            sensor-bindings = <&scroll SCRL_UP SCRL_DOWN &inc_dec_kp C_VOL_DN C_VOL_UP>;
         };
 
         left_layer {
             display-name = "Left";
             bindings = <
-&kp F1    &kp F2   &kp F3 &kp F4   &kp F5     &kp F6                       &kp F7      &kp F8    &kp F9    &kp F10  &kp F11   &kp F12
-&kp GRAVE &kp N1   &kp N2 &kp LBRC &kp RBRC   &kp N5                       &kp N6      &kp N7    &kp N8    &kp N9   &kp N0    &trans
-&kp GRAVE &kp EXCL &kp AT &kp LPAR &kp RPAR   &kp PRCNT                    &kp CARET   &kp AMPS  &kp STAR  &kp LPAR &kp RPAR  &kp TILDE
-&kp F7    &kp F8   &kp F9 &kp LBKT &kp RBKT   &kp F12   &trans   &trans    &kp KP_PLUS &kp MINUS &kp EQUAL &kp LBKT &kp RBKT  &kp BSLH
-                          &trans   &trans     &trans    &trans   &trans    &trans      &trans    &trans
+&kp F1  &kp F2    &kp F3   &kp F4   &kp F5     &kp F6                       &kp F7      &kp F8    &kp F9    &kp F10  &kp F11   &kp F12
+&trans  &kp COLON &kp EQ   &kp LBRC &kp RBRC   &kp DOLLAR                   &kp N6      &kp N7    &kp N8    &kp N9   &kp N0    &none 
+&trans  &kp LT    &kp GT   &kp LPAR &kp RPAR   &kp PRCNT                    &kp TILDE   &kp CARET &kp AMPS  &kp STAR &kp LPAR  &kp RPAR 
+&trans  &kp LGUI  &kp LALT &kp LBKT &kp RBKT   &kp CARET &trans   &trans    &kp PLUS    &kp MINUS &kp COLON &kp EQ   &kp LBKT  &kp RBKT
+                           &trans   &trans     &trans    &trans   &trans    &trans      &trans    &trans
             >;
 
             sensor-bindings = <&scroll SCRL_LEFT SCRL_RIGHT &inc_dec_kp PG_DN PG_UP>;
@@ -125,9 +137,9 @@
             display-name = "Mouse";
             bindings = <
 BTCLR    BTSEL0 BTSEL1 BTSEL2  BTSEL3  BTSEL4                        RGBBRD      RGBBRI      RGBHUI      RGBHUD     RGBSAI    RGBSAD
-BTCLRA   &trans &trans &trans  &trans  &trans                        &kp C_PREV  &kp C_PLAY  &kp C_STOP  &kp C_NEXT &trans    RGBTOG
-&trans   &trans &trans &trans  &trans  &trans                        &trans      &trans      &trans      &trans     &trans    &trans
-EXTON    EXTOFF EXTTOG &trans  &trans  &trans    &trans   &mkp LCLK  &mkp MCLK   &mkp RCLK   &trans      &trans     &trans    &trans
+BTCLRA   &none  &none  &none   &none   &none                         &kp C_PREV  &kp C_PLAY  &kp C_STOP  &kp C_NEXT &trans    RGBTOG
+&trans   &none  &none  &none   &none   &none                         &kp K_CUT   &kp K_COPY  &kp K_PASTE &none      &none     &none 
+&trans   &none  &none  &none   &none   &none     &trans   &mkp LCLK  &mkp MCLK   &mkp RCLK   &none       EXTON      EXTOFF    EXTTOG 
                        &trans  &trans  &trans    &trans   &trans     &trans      &trans      &tog 1
             >;
 
