@@ -20,6 +20,10 @@
 #define CLICK   &kp LCLK
 #define L_SHFT  &kp LSHFT
 #define R_SHFT  &kp RSHFT
+#define L_ALT   &kp LALT
+#define R_ALT   &kp RALT
+#define L_CTRL  &kp LCTRL
+#define R_CTRL  &kp RCTRL
 
 #define MO1     &mo 1
 #define MO2     &mo 2
@@ -124,7 +128,7 @@
 &kp GRAVE &kp N1 &kp N2 &kp N3    &kp N4   &kp N5                      &kp N6  &kp N7   &kp N8    &kp N9  &kp N0   &kp EQUAL
 &kp TAB   &kp Q  &kp W  &kp E     &kp R    &kp T                       &kp Y   &kp U    &kp I     &kp O   &kp P    &kp MINUS
 &kp ESC   &kp A  &kp S  &kp D     &kp F    &kp G                       &kp H   &kp J    &kp K     &kp L   &kp SEMI &kp SQT
-&kp LCTRL &kp Z  &kp X  &kp C     &kp V    &kp B     &mo 5     CLICK   &kp N   &kp M    &kp COMMA &kp DOT &kp FSLH &kp BSLH
+L_CTRL    &kp Z  &kp X  &kp C     &kp V    &kp B     &mo 5     L_ALT   &kp N   &kp M    &kp COMMA &kp DOT &kp FSLH &kp BSLH
                         MO3       MO2      L_SHFT    &kp SPACE &kp RET R_SHFT  MO4      &kp BSPC
             >;
 
