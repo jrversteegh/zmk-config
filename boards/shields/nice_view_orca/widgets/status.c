@@ -20,6 +20,9 @@ LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
 #include <zmk/events/endpoint_changed.h>
 #include <zmk/events/wpm_state_changed.h>
 #include <zmk/events/layer_state_changed.h>
+#include <zmk/event_manager.h>
+#include <zmk/events/activity_state_changed.h>
+#include <zmk/activity.h>
 #include <zmk/usb.h>
 #include <zmk/ble.h>
 #include <zmk/endpoints.h>
@@ -331,6 +334,31 @@ ZMK_DISPLAY_WIDGET_LISTENER(widget_wpm_status, struct wpm_status_state, wpm_stat
                             wpm_status_get_state)
 ZMK_SUBSCRIPTION(widget_wpm_status, zmk_wpm_state_changed);
 
+static void display_redraw(struct zmk_widget_status *widget) {
+    draw_top(widget->obj, &widget->state);
+    draw_middle(widget->obj, &widget->state);
+    draw_bottom(widget->obj, &widget->state);
+}
+
+// Redraw after wake up
+static int display_activity_event_listener(const zmk_event_t *eh) {
+    if (as_zmk_activity_state_changed(eh)) {
+        switch (zmk_activity_get_state()) {
+        case ZMK_ACTIVITY_ACTIVE:
+            struct zmk_widget_status *widget;
+            SYS_SLIST_FOR_EACH_CONTAINER(&widgets, widget, node) { display_redraw(widget); }
+            break;
+        case ZMK_ACTIVITY_IDLE:
+        case ZMK_ACTIVITY_SLEEP:
+            break;
+        }
+    }
+    return 0;
+}
+
+ZMK_LISTENER(display_activity_listener, display_activity_event_listener);
+ZMK_SUBSCRIPTION(display_activity_listener, zmk_activity_state_changed);
+
 int zmk_widget_status_init(struct zmk_widget_status *widget, lv_obj_t *parent) {
     widget->obj = lv_obj_create(parent);
     lv_obj_set_size(widget->obj, 160, 68);
@@ -355,5 +383,6 @@ int zmk_widget_status_init(struct zmk_widget_status *widget, lv_obj_t *parent) {
 
     return 0;
 }
+
 
 lv_obj_t *zmk_widget_status_obj(struct zmk_widget_status *widget) { return widget->obj; }

@@ -17,6 +17,9 @@ LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
 #include <zmk/events/battery_state_changed.h>
 #include <zmk/split/bluetooth/peripheral.h>
 #include <zmk/events/split_peripheral_status_changed.h>
+#include <zmk/event_manager.h>
+#include <zmk/events/activity_state_changed.h>
+#include <zmk/activity.h>
 #include <zmk/usb.h>
 #include <zmk/ble.h>
 
@@ -115,6 +118,29 @@ static void output_status_update_cb(struct peripheral_status_state state) {
 ZMK_DISPLAY_WIDGET_LISTENER(widget_peripheral_status, struct peripheral_status_state,
                             output_status_update_cb, get_state)
 ZMK_SUBSCRIPTION(widget_peripheral_status, zmk_split_peripheral_status_changed);
+
+static void display_redraw(struct zmk_widget_status *widget) {
+    draw_top(widget->obj, widget->cbuf, &widget->state);
+}
+
+// Redraw after wake up
+static int display_activity_event_listener(const zmk_event_t *eh) {
+    if (as_zmk_activity_state_changed(eh)) {
+        switch (zmk_activity_get_state()) {
+        case ZMK_ACTIVITY_ACTIVE:
+            struct zmk_widget_status *widget;
+            SYS_SLIST_FOR_EACH_CONTAINER(&widgets, widget, node) { display_redraw(widget); }
+            break;
+        case ZMK_ACTIVITY_IDLE:
+        case ZMK_ACTIVITY_SLEEP:
+            break;
+        }
+    }
+    return 0;
+}
+
+ZMK_LISTENER(display_activity_listener, display_activity_event_listener);
+ZMK_SUBSCRIPTION(display_activity_listener, zmk_activity_state_changed);
 
 int zmk_widget_status_init(struct zmk_widget_status *widget, lv_obj_t *parent) {
     widget->obj = lv_obj_create(parent);

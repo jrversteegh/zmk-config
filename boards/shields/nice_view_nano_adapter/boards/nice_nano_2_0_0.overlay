@@ -41,3 +41,12 @@ nice_view_spi: &spi0 {
          output-high;
      };
 };
+
+/ {
+    reg_display_power: reg-display-power {
+        compatible = "regulator-fixed";
+        regulator-name = "reg-nice-view";
+        enable-gpios = <&gpio1 2 GPIO_ACTIVE_HIGH>;
+        regulator-boot-on;
+    };
+};
