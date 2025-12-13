@@ -28,12 +28,15 @@ LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
 LV_IMG_DECLARE(logo);
 
 static sys_slist_t widgets = SYS_SLIST_STATIC_INIT(&widgets);
+static bool screen_off = false;
 
 struct peripheral_status_state {
     bool connected;
 };
 
 static void draw_top(lv_obj_t *widget, lv_color_t cbuf[], const struct status_state *state) {
+    if (screen_off)
+        return;
     lv_obj_t *canvas = lv_obj_get_child(widget, 0);
 
     lv_draw_label_dsc_t label_dsc;
@@ -125,14 +128,17 @@ static void display_redraw(struct zmk_widget_status *widget) {
 
 // Redraw after wake up
 static int display_activity_event_listener(const zmk_event_t *eh) {
-    if (as_zmk_activity_state_changed(eh)) {
-        switch (zmk_activity_get_state()) {
+    const struct zmk_activity_state_changed *eva = as_zmk_activity_state_changed(eh);
+    if (eva) {
+        switch (eva->state) {
         case ZMK_ACTIVITY_ACTIVE:
+            screen_off = false;
             struct zmk_widget_status *widget;
             SYS_SLIST_FOR_EACH_CONTAINER(&widgets, widget, node) { display_redraw(widget); }
             break;
         case ZMK_ACTIVITY_IDLE:
         case ZMK_ACTIVITY_SLEEP:
+            screen_off = true;
             break;
         }
     }
