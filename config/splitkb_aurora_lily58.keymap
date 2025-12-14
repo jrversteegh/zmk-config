@@ -25,11 +25,12 @@
 #define L_CTRL  &kp LCTRL
 #define R_CTRL  &kp RCTRL
 
-#define MO1     &mo 1
 #define MO2     &mo 2
-#define MO3     &mo 3
 #define MO4     &mo 4
 #define MO5     &mo 5
+
+#define TOG1     &tog 1
+#define TOG3     &tog 3
 
 #define RGBON   &rgb_ug RGB_ON
 #define RGBOFF  &rgb_ug RGB_OFF
@@ -103,6 +104,23 @@
 
 #define EQ      EQUAL
 
+&led_strip {
+  chain-length = <29>;
+};
+
+&sensors {
+  triggers-per-rotation = <40>;
+};
+
+&uc {
+  default-mode = <UC_MODE_LINUX>;
+};
+
+&soft_off {
+  hold-time-ms = <2000>;
+  /delete-property/ split-peripheral-off-on-press;
+};
+
 / {
     behaviors {
         scroll: keyboard_scroll {
@@ -122,27 +140,27 @@
     keymap {
         compatible = "zmk,keymap";
 
-        qwerty_layer {
-            display-name = "QWERTY";
+        colemakdh_layer {
+            display-name = "ColeDH";
             bindings = <
-&kp GRAVE &kp N1 &kp N2 &kp N3    &kp N4   &kp N5                      &kp N6  &kp N7   &kp N8    &kp N9  &kp N0   &kp EQUAL
-&kp TAB   &kp Q  &kp W  &kp E     &kp R    &kp T                       &kp Y   &kp U    &kp I     &kp O   &kp P    &kp MINUS
-&kp ESC   &kp A  &kp S  &kp D     &kp F    &kp G                       &kp H   &kp J    &kp K     &kp L   &kp SEMI &kp SQT
-L_CTRL    &kp Z  &kp X  &kp C     &kp V    &kp B     &mo 5     L_ALT   &kp N   &kp M    &kp COMMA &kp DOT &kp FSLH &kp BSLH
-                        MO3       MO2      L_SHFT    &kp SPACE &kp RET R_SHFT  MO4      &kp BSPC
+&kp GRAVE &kp N1 &kp N2 &kp N3   &kp N4  &kp N5                     &kp N6  &kp N7   &kp N8    &kp N9  &kp N0   &kp EQUAL
+&kp TAB   &kp Q  &kp W  &kp F    &kp P   &kp B                      &kp J   &kp L    &kp U     &kp Y   &kp SEMI &kp MINUS
+&kp ESC   &kp A  &kp R  &kp S    &kp T   &kp G                      &kp M   &kp N    &kp E     &kp I   &kp O    &kp SQT
+L_CTRL    &kp Z  &kp X  &kp C    &kp D   &kp V    MO5       L_ALT   &kp K   &kp H    &kp COMMA &kp DOT &kp FSLH &kp BSLH
+                        TOG3     MO2     L_SHFT   &kp SPACE &kp RET R_SHFT  MO4      &kp BSPC
             >;
 
             sensor-bindings = <&inc_dec_kp LEFT RIGHT &inc_dec_kp DOWN UP>;
         };
 
-        colemakdh_layer {
-            display-name = "ColeDH";
+        qwerty_layer {
+            display-name = "QWERTY";
             bindings = <
-&trans    &trans &trans &trans    &trans   &trans                      &trans  &trans   &trans    &trans  &trans   &trans
-&trans    &kp Q  &kp W  &kp F     &kp P    &kp B                       &kp J   &kp L    &kp U     &kp Y   &kp SEMI &trans
-&trans    &kp A  &kp R  &kp S     &kp T    &kp G                       &kp M   &kp N    &kp E     &kp I   &kp O    &trans
-&trans    &kp Z  &kp X  &kp C     &kp D    &kp V     &trans    &trans  &kp K   &kp H    &kp COMMA &kp DOT &trans   &trans
-                        &trans    &trans   &trans    &trans    &trans  &trans  &trans   &trans
+&kp GRAVE &kp N1 &kp N2 &kp N3   &kp N4  &kp N5                     &kp N6  &kp N7   &kp N8    &kp N9  &kp N0   &kp EQUAL
+&kp TAB   &kp Q  &kp W  &kp E    &kp R   &kp T                      &kp Y   &kp U    &kp I     &kp O   &kp P    &kp MINUS
+&kp ESC   &kp A  &kp S  &kp D    &kp F   &kp G                      &kp H   &kp J    &kp K     &kp L   &kp SEMI &kp SQT
+L_CTRL    &kp Z  &kp X  &kp C    &kp V   &kp B    MO5       L_ALT   &kp N   &kp M    &kp COMMA &kp DOT &kp FSLH &kp BSLH
+                        TOG3     MO2     L_SHFT   &kp SPACE &kp RET R_SHFT  MO4      &kp BSPC
             >;
 
             sensor-bindings = <&inc_dec_kp LEFT RIGHT &inc_dec_kp DOWN UP>;
@@ -154,7 +172,7 @@ L_CTRL    &kp Z  &kp X  &kp C     &kp V    &kp B     &mo 5     L_ALT   &kp N   &
 AGRAVE   EGRAVE    IGRAVE   OGRAVE   UGRAVE   CDILLA                     &kp F7    &kp F8    &kp F9   &kp F10   &kp F11   &kp F12
 AACUTE   EACUTE    IACUTE   OACUTE   UACUTE   EURO                       &kp INS   &kp DEL   &kp HOME &kp END   &kp PG_UP &trans
 ADIAER   EDIAER    IDIAER   ODIAER   UDIAER   RINGLS                     &kp LEFT  &kp DOWN  &kp UP   &kp RIGHT &kp PG_DN &trans
-ACIRCM   ECIRCM    ICIRCM   OCIRCM   UCIRCM   &none    &trans   &trans   &kp BSLH  &kp FSLH  &kp PIPE &kp TILDE &kp RALT  &kp RCTRL
+ACIRCM   ECIRCM    ICIRCM   OCIRCM   UCIRCM   FROE     &trans   &trans   &kp BSLH  &kp FSLH  &kp PIPE &kp TILDE &kp RALT  &kp RCTRL
                             &trans   &trans   &trans   &trans   &trans   &trans    &kp RGUI  &trans
             >;
 
@@ -164,11 +182,11 @@ ACIRCM   ECIRCM    ICIRCM   OCIRCM   UCIRCM   &none    &trans   &trans   &kp BSL
         numeric_layer {
             display-name = "Numeric";
             bindings = <
-&trans   FRAE      FROE     &trans   &trans   &trans                     &trans    &trans    &kp FSLH &kp STAR  &kp MINUS  &kp LT
-&trans   SMILE     WINK     TONGUE   CRINGE   STERL                      &kp EXCL  &kp N7    &kp N8   &kp N9    &kp PLUS   &kp GT
-&trans   ROFL      HALLEH   THUMBS   &none    &none                      &kp TILDE &kp N4    &kp N5   &kp N6    &kp EQUAL  &kp EQUAL
-&trans   CRYING    CELEB    MUSIC    &none    &none    &trans   &trans   &kp PRCNT &kp N1    &kp N2   &kp N3    &kp RET    &kp RET
-                            &trans   &trans   &trans   &trans   &trans   &trans    &kp N0    &kp DOT
+&trans   CRINGE    STERL    &none    &kp LT   &kp GT                     &kp QMARK &kp N0    &kp FSLH &kp STAR  &kp MINUS  &kp LT
+&trans   SMILE     WINK     TONGUE   &kp LBRC &kp RBRC                   &kp EXCL  &kp N7    &kp N8   &kp N9    &kp PLUS   &kp GT
+&trans   ROFL      HALLEH   THUMBS   &kp LPAR &kp RPAR                   &kp TILDE &kp N4    &kp N5   &kp N6    &kp EQUAL  &kp EQUAL
+&trans   CRYING    CELEB    MUSIC    &kp LBKT &kp RBKT &trans   &trans   &kp PRCNT &kp N1    &kp N2   &kp N3    &kp RET    &kp RET
+                            &trans   &trans   &trans   &trans   &trans   &kp DOT   &kp N0    &trans
             >;
 
             sensor-bindings = <&scroll SCRL_UP SCRL_DOWN &inc_dec_kp C_VOL_DN C_VOL_UP>;
@@ -192,25 +210,13 @@ ACIRCM   ECIRCM    ICIRCM   OCIRCM   UCIRCM   &none    &trans   &trans   &kp BSL
             bindings = <
 BTCLR    BTSEL0 BTSEL1 BTSEL2  BTSEL3  BTSEL4                        RGBBRD      RGBBRI      RGBHUI      RGBHUD     RGBSAI    RGBSAD
 BTCLRA   &none  &none  &none   &none   &none                         &kp C_PREV  &kp C_PLAY  &kp C_STOP  &kp C_NEXT &trans    RGBTOG
-&trans   &none  &none  &none   &none   &none                         &kp K_CUT   &kp K_COPY  &kp K_PASTE &kp K_EDIT RGBFON    RGBFOFF
-USLI     USWI   USMA   &none   &none   &none     &trans   &mkp LCLK  &mkp MCLK   &mkp RCLK   &none       EXTON      EXTOFF    EXTTOG 
-                       &trans  &trans  &trans    &trans   &trans     &trans      &trans      &tog 1
+&trans   &none  &none  &none   &none   &soft_off                     &kp K_CUT   &kp K_COPY  &kp K_PASTE &kp K_EDIT RGBFON    RGBFOFF
+USLI     USWI   USMA   &none   &none   &none     &trans   &mkp LCLK  &mkp MCLK   &mkp RCLK   EXTON       EXTOFF     EXTTOG    &soft_off
+                       &trans  &trans  &trans    &trans   &trans     &trans      &trans      TOG1
             >;
 
             sensor-bindings = <&move MOVE_LEFT MOVE_RIGHT &move MOVE_DOWN MOVE_UP>;
         };
     };
-};
-
-&led_strip {
-  chain-length = <29>;
-};
-
-&sensors {
-  triggers-per-rotation = <40>;
-};
-
-&uc {
-  default-mode = <UC_MODE_LINUX>;
 };
 
