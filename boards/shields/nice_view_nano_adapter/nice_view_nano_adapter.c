@@ -47,7 +47,6 @@ static int switch_off() {
 }
 
 static int nice_view_nano_adapter_event_listener(const zmk_event_t *eh) {
-    int ret = 0;
     const struct zmk_activity_state_changed *eva = as_zmk_activity_state_changed(eh);
     if (eva) {
         switch (eva->state) {
