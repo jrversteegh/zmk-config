@@ -45,6 +45,9 @@
 #define RGBBRD  &rgb_ug RGB_BRD
 #define RGBEFF  &rgb_ug RGB_EFF
 #define RGBEFR  &rgb_ug RGB_EFR
+#define RGBSPI  &rgb_ug RGB_SPI
+#define RGBSPD  &rgb_ug RGB_SPD
+#define RGBBTOG &rgb_ug RGB_BTOG
 
 #define BTCLR   &bt BT_CLR
 #define BTSEL0  &bt BT_SEL 0
@@ -209,10 +212,10 @@ ACIRCM   ECIRCM    ICIRCM   OCIRCM   UCIRCM   FROE     &trans   &trans   &kp BSL
         mouse_layer {
             display-name = "Mouse";
             bindings = <
-BTCLR    BTSEL0 BTSEL1 BTSEL2  BTSEL3  BTSEL4                        RGBBRD      RGBBRI      RGBHUI      RGBHUD     RGBSAI    RGBSAD
-BTCLRA   &none  &none  &none   &none   &none                         &kp C_PREV  &kp C_PLAY  &kp C_STOP  &kp C_NEXT &trans    RGBTOG
-&trans   &none  &none  &none   &none   &none                         &kp K_CUT   &kp K_COPY  &kp K_PASTE &kp K_EDIT RGBFON    RGBFOFF
-USLI     USWI   USMA   &none   &none   &none     &trans   &mkp LCLK  &mkp MCLK   &mkp RCLK   EXTTOG      &soft_off  RGBEFR    RGBEFF
+BTCLR    BTSEL0 BTSEL1 BTSEL2  BTSEL3  BTSEL4                        RGBBRD      RGBBRI      RGBHUD      RGBHUI     RGBSAD    RGBSAI
+BTCLRA   &none  &none  &none   RGBSPD  RGBSPI                        &kp C_PREV  &kp C_PLAY  &kp C_STOP  &kp C_NEXT RGBBTOG   RGBTOG
+&trans   &none  &none  &none   &none   &none                         &kp K_CUT   &kp K_COPY  &kp K_PASTE &kp K_EDIT RGBEFR    RGBEFF
+USLI     USWI   USMA   &none   &none   &none     &trans   &mkp LCLK  &mkp MCLK   &mkp RCLK   EXTTOG      &soft_off  RGBFON    RGBFOFF
                        &trans  &trans  &trans    &trans   &trans     &trans      &trans      TOG1
             >;
 
