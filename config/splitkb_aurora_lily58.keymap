@@ -26,11 +26,11 @@
 #define R_CTRL  &kp RCTRL
 
 #define MO2     &mo 2
+#define MO3     &mo 3
 #define MO4     &mo 4
 #define MO5     &mo 5
 
 #define TOG1     &tog 1
-#define TOG3     &tog 3
 
 #define RGBON   &rgb_ug RGB_ON
 #define RGBOFF  &rgb_ug RGB_OFF
@@ -153,7 +153,7 @@
 &kp TAB   &kp Q  &kp W  &kp F    &kp P   &kp B                      &kp J   &kp L    &kp U     &kp Y   &kp SEMI &kp MINUS
 &kp ESC   &kp A  &kp R  &kp S    &kp T   &kp G                      &kp M   &kp N    &kp E     &kp I   &kp O    &kp SQT
 L_CTRL    &kp Z  &kp X  &kp C    &kp D   &kp V    MO5       L_ALT   &kp K   &kp H    &kp COMMA &kp DOT &kp FSLH &kp BSLH
-                        TOG3     MO2     L_SHFT   &kp SPACE &kp RET R_SHFT  MO4      &kp BSPC
+                        MO3      MO2     L_SHFT   &kp SPACE &kp RET R_SHFT  MO4      &kp BSPC
             >;
 
             sensor-bindings = <&inc_dec_kp LEFT RIGHT &inc_dec_kp DOWN UP>;
@@ -166,7 +166,7 @@ L_CTRL    &kp Z  &kp X  &kp C    &kp D   &kp V    MO5       L_ALT   &kp K   &kp 
 &kp TAB   &kp Q  &kp W  &kp E    &kp R   &kp T                      &kp Y   &kp U    &kp I     &kp O   &kp P    &kp MINUS
 &kp ESC   &kp A  &kp S  &kp D    &kp F   &kp G                      &kp H   &kp J    &kp K     &kp L   &kp SEMI &kp SQT
 L_CTRL    &kp Z  &kp X  &kp C    &kp V   &kp B    MO5       L_ALT   &kp N   &kp M    &kp COMMA &kp DOT &kp FSLH &kp BSLH
-                        TOG3     MO2     L_SHFT   &kp SPACE &kp RET R_SHFT  MO4      &kp BSPC
+                        MO3      MO2     L_SHFT   &kp SPACE &kp RET R_SHFT  MO4      &kp BSPC
             >;
 
             sensor-bindings = <&inc_dec_kp LEFT RIGHT &inc_dec_kp DOWN UP>;
@@ -178,8 +178,8 @@ L_CTRL    &kp Z  &kp X  &kp C    &kp V   &kp B    MO5       L_ALT   &kp N   &kp 
 AGRAVE   EGRAVE    IGRAVE   OGRAVE   UGRAVE   CDILLA                     &kp F7    &kp F8    &kp F9   &kp F10   &kp F11   &kp F12
 AACUTE   EACUTE    IACUTE   OACUTE   UACUTE   EURO                       &kp INS   &kp DEL   &kp HOME &kp END   &kp PG_UP &trans
 ADIAER   EDIAER    IDIAER   ODIAER   UDIAER   RINGLS                     &kp LEFT  &kp DOWN  &kp UP   &kp RIGHT &kp PG_DN &trans
-ACIRCM   ECIRCM    ICIRCM   OCIRCM   UCIRCM   FROE     &trans   &trans   &kp BSLH  &kp FSLH  &kp PIPE &kp TILDE &kp RALT  &kp RCTRL
-                            &trans   &trans   &trans   &trans   &trans   &trans    &kp RGUI  &trans
+ACIRCM   ECIRCM    ICIRCM   OCIRCM   UCIRCM   FROE     &trans   &trans   &kp BSLH  &kp FSLH  &kp PIPE &kp RALT  &kp K_APP &kp RCTRL
+                            &trans   &trans   &trans   &trans   &trans   &trans    &trans    &trans
             >;
 
             sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &scroll SCRL_DOWN SCRL_UP>;
