@@ -53,7 +53,7 @@ static int nice_view_nano_adapter_event_listener(const zmk_event_t *eh) {
         case ZMK_ACTIVITY_ACTIVE:
             return switch_on();
         case ZMK_ACTIVITY_IDLE:
-            return switch_off();
+            return 0;
         case ZMK_ACTIVITY_SLEEP:
             permanently_off = true;
             return switch_off();

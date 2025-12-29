@@ -143,6 +143,14 @@
         };
     };
 
+    macros {
+        alt_tab: alt_tab {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp LALT>, <&kp TAB>;
+        };
+    };
+
     keymap {
         compatible = "zmk,keymap";
 
@@ -201,10 +209,10 @@ ACIRCM   ECIRCM    ICIRCM   OCIRCM   UCIRCM   FROE     &trans   &trans   &kp BSL
         left_layer {
             display-name = "Left";
             bindings = <
-&kp F1  &kp F2    &kp F3   &kp F4     &kp F5     &kp F6                       &kp F7      &kp F8    &kp F9    &kp F10  &kp F11   &kp F12
-&trans  &kp COLON &kp EQ   &kp LBRC   &kp RBRC   &kp DOLLAR                   &kp INS     &kp DEL   &none     &none    &none     &none
-&trans  &kp LT    &kp GT   &kp LPAR   &kp RPAR   &kp PRCNT                    &kp TILDE   &kp CARET &kp AMPS  &kp STAR &kp LPAR  &kp RPAR 
-&trans  &kp LGUI  &kp LALT &kp LBKT   &kp RBKT   &kp CARET &trans   &trans    &kp PLUS    &kp MINUS &kp COLON &kp EQ   &kp LBKT  &kp RBKT
+&kp F1   &kp F2    &kp F3   &kp F4     &kp F5     &kp F6                       &kp F7      &kp F8    &kp F9    &kp F10  &kp F11   &kp F12
+&alt_tab &kp COLON &kp EQ   &kp LBRC   &kp RBRC   &kp DOLLAR                   &kp INS     &kp DEL   &none     &none    &none     &none
+&trans   &kp LT    &kp GT   &kp LPAR   &kp RPAR   &kp PRCNT                    &kp TILDE   &kp CARET &kp AMPS  &kp STAR &kp LPAR  &kp RPAR 
+&trans   &kp LGUI  &kp LALT &kp LBKT   &kp RBKT   &kp CARET &trans   &trans    &kp PLUS    &kp MINUS &kp COLON &kp EQ   &kp LBKT  &kp RBKT
                            &kp K_UNDO &kp PSCRN  &trans    &trans   &trans    &trans      &trans    &trans
             >;
 

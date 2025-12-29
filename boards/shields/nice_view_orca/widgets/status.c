@@ -29,6 +29,8 @@ LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
 #include <zmk/keymap.h>
 #include <zmk/wpm.h>
 
+LV_IMG_DECLARE(zzzz);
+
 static sys_slist_t widgets = SYS_SLIST_STATIC_INIT(&widgets);
 static bool screen_off = false;
 
@@ -347,17 +349,40 @@ static void display_redraw(struct zmk_widget_status *widget) {
     draw_bottom(widget->obj, &widget->state);
 }
 
+static lv_obj_t *img_zzzz = 0;
+
+static void draw_zzzz(struct zmk_widget_status *widget) {
+    if (screen_off)
+        return;
+    if (!img_zzzz) {
+        img_zzzz = lv_img_create(widget->obj);
+    }
+    lv_image_set_src(img_zzzz, &zzzz);
+    lv_obj_align(img_zzzz, LV_ALIGN_TOP_LEFT, 0, 0);
+}
+
+static void clear_zzzz() {
+    if (img_zzzz) {
+        lv_obj_del_async(img_zzzz);
+    }
+    img_zzzz = 0;
+}
+
 // Redraw after wake up
 static int display_activity_event_listener(const zmk_event_t *eh) {
     const struct zmk_activity_state_changed *eva = as_zmk_activity_state_changed(eh);
     if (eva) {
         switch (eva->state) {
         case ZMK_ACTIVITY_ACTIVE:
+            clear_zzzz();
             screen_off = false;
             struct zmk_widget_status *widget;
             SYS_SLIST_FOR_EACH_CONTAINER(&widgets, widget, node) { display_redraw(widget); }
             break;
         case ZMK_ACTIVITY_IDLE:
+            SYS_SLIST_FOR_EACH_CONTAINER(&widgets, widget, node) { draw_zzzz(widget); }
+            screen_off = true;
+            break;
         case ZMK_ACTIVITY_SLEEP:
             screen_off = true;
             break;
