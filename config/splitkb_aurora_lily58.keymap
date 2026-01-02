@@ -94,7 +94,9 @@
 #define CDILLA  &uc UC_FR_C_CEDILLA
 #define RINGLS  &uc UC_DE_SS
 
-#define SMILE   &uc UC_SMILING_FACE_WITH_OPEN_MOUTH_AND_SMILING_EYES
+#define SMILE   &uc UC_SLIGHTLY_SMILING_FACE
+#define LAUGH   &uc UC_SMILING_FACE_WITH_OPEN_MOUTH_AND_SMILING_EYES
+#define KISS    &uc UC_FACE_THROWING_A_KISS
 #define WINK    &uc UC_WINKING_FACE
 #define CRINGE  &uc UC_FACE_WITH_STUCK_OUT_TONGUE_AND_TIGHTLY_CLOSED_EYES
 #define TONGUE  &uc UC_FACE_WITH_STUCK_OUT_TONGUE
@@ -196,9 +198,9 @@ ACIRCM   ECIRCM    ICIRCM   OCIRCM   UCIRCM   FROE     &trans   &trans   &kp BSL
         numeric_layer {
             display-name = "Numeric";
             bindings = <
-&trans   CRINGE    STERL    &none    &kp LT   &kp GT                     &kp QMARK &kp N0    &kp FSLH &kp STAR  &kp MINUS  &kp LT
-&trans   SMILE     WINK     TONGUE   &kp LBRC &kp RBRC                   &kp EXCL  &kp N7    &kp N8   &kp N9    &kp PLUS   &kp GT
-&trans   ROFL      HALLEH   THUMBS   &kp LPAR &kp RPAR                   &kp TILDE &kp N4    &kp N5   &kp N6    &kp EQUAL  &kp EQUAL
+SMILE    LAUGH     CRINGE   STERL    &kp LT   &kp GT                     &kp QMARK &kp N0    &kp FSLH &kp STAR  &kp MINUS  &kp LT
+&trans   ROFL      WINK     TONGUE   &kp LBRC &kp RBRC                   &kp EXCL  &kp N7    &kp N8   &kp N9    &kp PLUS   &kp GT
+&trans   KISS      HALLEH   THUMBS   &kp LPAR &kp RPAR                   &kp TILDE &kp N4    &kp N5   &kp N6    &kp EQUAL  &kp EQUAL
 &trans   CRYING    CELEB    MUSIC    &kp LBKT &kp RBKT &trans   &trans   &kp PRCNT &kp N1    &kp N2   &kp N3    &kp RET    &kp RET
                             &trans   &trans   &trans   &trans   &trans   &kp DOT   &kp N0    &trans
             >;
