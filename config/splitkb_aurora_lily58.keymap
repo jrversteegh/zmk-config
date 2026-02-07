@@ -25,12 +25,23 @@
 #define L_CTRL  &kp LCTRL
 #define R_CTRL  &kp RCTRL
 
+#define CCUT    &kp C_AC_CUT
+#define CCOPY   &kp C_AC_COPY
+#define CPASTE  &kp C_AC_PASTE
+
+#define KLOCK   &kp K_LOCK
+#define CLOCK   &kp C_AL_LOCK
+#define CLOGOFF &kp C_AL_LOGOFF
+
+#define CCLOSE  &kp C_AC_CLOSE
+#define CEXIT   &kp C_AC_EXIT
+
 #define MO2     &mo 2
 #define MO3     &mo 3
 #define MO4     &mo 4
 #define MO5     &mo 5
 
-#define TOG1     &tog 1
+#define TOG1    &tog 1
 
 #define RGBON   &rgb_ug RGB_ON
 #define RGBOFF  &rgb_ug RGB_OFF
@@ -249,11 +260,11 @@ SMILE    LAUGH     CRINGE   STERL    &kp LT   &kp GT                     &kp PRC
         mouse_layer {
             display-name = "Mouse";
             bindings = <
-BTCLR    BTSEL0 BTSEL1 BTSEL2  BTSEL3  BTSEL4                        RGBBRD      RGBBRI      RGBHUD      RGBHUI     RGBSAD    RGBSAI
-BTCLRA   &none  &none  &none   RGBSPD  RGBSPI                        &kp C_PREV  &kp C_PLAY  &kp C_STOP  &kp C_NEXT RGBON     RGBTOG
-&trans   &none  &none  &none   RGBBDN  RGBBUP                        &kp K_CUT   &kp K_COPY  &kp K_PASTE &kp K_EDIT RGBEFR    RGBEFF
-USLI     USWI   USMA   &none   &none   RGBHSH    &trans   &mkp LCLK  &mkp MCLK   &mkp RCLK   EXTTOG      &soft_off  RGBFON    RGBFOFF
-                       &trans  &trans  &trans    &trans   &trans     &trans      &trans      TOG1
+BTCLR    BTSEL0   BTSEL1    BTSEL2      BTSEL3  BTSEL4                        RGBBRD      RGBBRI      RGBHUD      RGBHUI     RGBSAD    RGBSAI
+BTCLRA   CCUT     CCOPY     CPASTE      RGBSPD  RGBSPI                        &kp C_PREV  &kp C_PLAY  &kp C_STOP  &kp C_NEXT RGBON     RGBTOG
+&trans   KLOCK    CLOCK     CLOGOFF     RGBBDN  RGBBUP                        &kp K_CUT   &kp K_COPY  &kp K_PASTE &kp K_EDIT RGBEFR    RGBEFF
+USLI     USWI     USMA      CCLOSE      CEXIT   RGBHSH    &trans   &mkp LCLK  &mkp MCLK   &mkp RCLK   EXTTOG      &soft_off  RGBFON    RGBFOFF
+                            &trans      &trans  &trans    &trans   &trans     &trans      &trans      TOG1
             >;
 
             sensor-bindings = <&move MOVE_LEFT MOVE_RIGHT &move MOVE_DOWN MOVE_UP>;
